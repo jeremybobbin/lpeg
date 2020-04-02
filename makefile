@@ -1,3 +1,5 @@
+include config.mk
+
 LIBNAME = lpeg
 LUADIR = ../lua/
 
@@ -30,17 +32,10 @@ RANLIB = ranlib
 
 FILES = lpvm.o lpcap.o lptree.o lpcode.o lpprint.o
 
-# For Linux
-linux:
-	$(MAKE) lpeg.so "DLLFLAGS = -shared -fPIC"
-	$(MAKE) lpeg.a
-
-# For Mac OS
-macosx:
-	$(MAKE) lpeg.so "DLLFLAGS = -bundle -undefined dynamic_lookup"
+build: lpeg.so lpeg.a
 
 lpeg.so: $(FILES)
-	env $(CC) $(DLLFLAGS) $(FILES) -o lpeg.so
+	env $(CC) $(LDFLAGS) $(FILES) -o lpeg.so
 
 lpeg.a: $(FILES)
 	env $(AR) rc lpeg.a $(FILES)
