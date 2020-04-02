@@ -41,6 +41,10 @@ lpeg.a: $(FILES)
 	env $(AR) rc lpeg.a $(FILES)
 	env $(RANLIB) lpeg.a
 
+install: lpeg.so lpeg.a
+	@echo installing library files to ${PREFIX}/lib
+	cp -v lpeg.so lpeg.a ${PREFIX}/lib
+
 $(FILES): makefile
 
 test: test.lua re.lua lpeg.so

@@ -1,16 +1,36 @@
 #!/bin/sh
+PREFIX=/usr/local
+LDFLAGS="-shared -fPIC"
+
+usage () {
+	cat <<- EOF
+	Usage: $0 [OPTION]... [VAR=VALUE]...
+
+	Installation directories:
+	  --prefix=PREFIX         main installation prefix [/usr/local]
+
+	EOF
+	exit 0
+}
+
+
+for arg; do
+	case $arg in
+		--prefix=*) PREFIX=${arg#*=};;
+		--help|*) usage;;
+	esac
+done
 
 OS=$(uname)
-
-exec 3>&1 1>config.mk
-
 case "$OS" in
-Linux)    LDFLAGS="-shared -fPIC";;
-Darwin)  LDFLAGS="-bundle -undefined dynamic_lookup";;
-*)     echo "$0: unsuppoted OS" 1>&2;;
+	Linux)    LDFLAGS="-shared -fPIC";;
+	Darwin)  LDFLAGS="-bundle -undefined dynamic_lookup";;
+	*)     echo "$0: unsuppoted OS" 1>&2;;
 esac
 
-echo LDFLAGS="$LDFLAGS"
-
+exec 3>&1 1>config.mk
+echo PREFIX=$PREFIX
+echo LDFLAGS=$LDFLAGS
 exec 1>&3 3>&-
+
 echo done 1>&2
