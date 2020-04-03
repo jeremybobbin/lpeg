@@ -1,5 +1,3 @@
-include config.mk
-
 LIBNAME = lpeg
 LUADIR = ../lua/
 
@@ -30,20 +28,23 @@ AR = ar
 RANLIB = ranlib
 
 
+LIBDEP = liblpeg.so liblpeg.a
 FILES = lpvm.o lpcap.o lptree.o lpcode.o lpprint.o
 
-build: liblpeg.so liblpeg.a
+include config.mk
+
+build: $(LIBDEP)
 
 liblpeg.so: $(FILES)
-	env $(CC) $(LDFLAGS) $(FILES) -o liblpeg.so
+	env $(CC) -shared $(LDFLAGS) $(FILES) -o liblpeg.so
 
 liblpeg.a: $(FILES)
 	env $(AR) rc liblpeg.a $(FILES)
 	env $(RANLIB) liblpeg.a
 
-install: liblpeg.so liblpeg.a
-	@echo installing library files to ${PREFIX}/lib
-	@cp -v liblpeg.a liblpeg.so ${PREFIX}/lib
+install: $(LIBDEP)
+	@echo installing library files to $(PREFIX)/lib
+	@cp -v $(LIBDEP) $(PREFIX)/lib
 
 $(FILES): makefile
 
