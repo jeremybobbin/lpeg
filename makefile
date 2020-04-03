@@ -32,18 +32,18 @@ RANLIB = ranlib
 
 FILES = lpvm.o lpcap.o lptree.o lpcode.o lpprint.o
 
-build: lpeg.so lpeg.a
+build: liblpeg.so liblpeg.a
 
-lpeg.so: $(FILES)
-	env $(CC) $(LDFLAGS) $(FILES) -o lpeg.so
+liblpeg.so: $(FILES)
+	env $(CC) $(LDFLAGS) $(FILES) -o liblpeg.so
 
-lpeg.a: $(FILES)
-	env $(AR) rc lpeg.a $(FILES)
-	env $(RANLIB) lpeg.a
+liblpeg.a: $(FILES)
+	env $(AR) rc liblpeg.a $(FILES)
+	env $(RANLIB) liblpeg.a
 
-install: lpeg.so lpeg.a
+install: liblpeg.so liblpeg.a
 	@echo installing library files to ${PREFIX}/lib
-	cp -v lpeg.so lpeg.a ${PREFIX}/lib
+	@cp -v liblpeg.a liblpeg.so ${PREFIX}/lib
 
 $(FILES): makefile
 
@@ -51,7 +51,7 @@ test: test.lua re.lua lpeg.so
 	./test.lua
 
 clean:
-	rm -f $(FILES) lpeg.so lpeg.a
+	rm -f $(FILES) liblpeg.so liblpeg.a
 
 
 lpcap.o: lpcap.c lpcap.h lptypes.h
