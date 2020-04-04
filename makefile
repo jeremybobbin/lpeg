@@ -36,7 +36,7 @@ include config.mk
 build: $(LIBDEP)
 
 liblpeg.so: $(FILES)
-	env $(CC) -shared $(LDFLAGS) $(FILES) -o liblpeg.so
+	env $(CC) $(SHARED_LDFLAGS) $(LDFLAGS) $(FILES) -o liblpeg.so
 
 liblpeg.a: $(FILES)
 	env $(AR) rc liblpeg.a $(FILES)

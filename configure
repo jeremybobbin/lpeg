@@ -1,6 +1,6 @@
 #!/bin/sh
 PREFIX=/usr/local
-LDFLAGS="-shared -fPIC"
+SHARED_LDFLAGS="-shared -fPIC"
 SHARED="yes"
 STATIC="yes"
 
