@@ -25,6 +25,8 @@ for arg; do
 		--prefix=*) PREFIX=${arg#*=};;
 		--without-shared) SHARED=no;;
 		--without-static) STATIC=no;;
+		--*) usage;;
+		*=*) ;;
 		--help|*) usage;;
 	esac
 done
