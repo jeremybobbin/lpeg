@@ -29,6 +29,7 @@ RANLIB = ranlib
 
 
 LIBDEP = liblpeg.so liblpeg.a
+SHARED_LDFLAGS = -share
 FILES = lpvm.o lpcap.o lptree.o lpcode.o lpprint.o
 
 include config.mk
@@ -45,8 +46,6 @@ liblpeg.a: $(FILES)
 install: $(LIBDEP)
 	@echo installing library files to $(PREFIX)/lib
 	@cp -v $(LIBDEP) $(PREFIX)/lib
-
-$(FILES): makefile
 
 test: test.lua re.lua lpeg.so
 	./test.lua
