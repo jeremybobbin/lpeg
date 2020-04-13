@@ -33,8 +33,8 @@ done
 
 OS=$(uname)
 case "$OS" in
-	Linux)    LDFLAGS="-shared -fPIC";;
-	Darwin)  LDFLAGS="-bundle -undefined dynamic_lookup";;
+	Linux)    SHARED_LDFLAGS="-shared -fPIC";;
+	Darwin)  SHARED_LDFLAGS="-bundle -undefined dynamic_lookup";;
 	*)     echo "$0: unsuppoted OS" 1>&2;;
 esac
 
@@ -48,7 +48,7 @@ fi
 
 exec 3>&1 1>config.mk
 echo PREFIX=$PREFIX
-echo LDFLAGS=$LDFLAGS
+echo SHARED_LDFLAGS=$SHARED_LDFLAGS
 echo LIBDEP=$LIBDEP
 exec 1>&3 3>&-
 
